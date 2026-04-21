@@ -1,9 +1,10 @@
 import React, { Suspense, useRef, useEffect } from 'react'
+import { useAuth } from './AuthContext'
 
-// React remote — exposed as a React component, use directly
-const ReactWidget = React.lazy(() => import('reactApp/ReactWidget'))
+// Auth MFE — login form
+const AuthWidget = React.lazy(() => import('reactApp/AuthWidget'))
 
-// Vue remote — must be mounted into the DOM via Vue's createApp
+// Vue remote — mounted imperatively
 function VueWidget() {
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -27,35 +28,59 @@ function VueWidget() {
   return <div ref={containerRef} />
 }
 
-export default function App() {
+function LoginPage() {
+  const { login } = useAuth()
+
   return (
-    <div
-      style={{
-        fontFamily: 'sans-serif',
-        padding: 32,
-        background: '#0d0d0d',
-        minHeight: '100vh',
-        color: '#fff',
-      }}
-    >
-      <h1 style={{ marginBottom: 8 }}>Micro Frontend Shell</h1>
-      <p style={{ color: '#aaa', marginBottom: 32 }}>
-        Hosting remote React and Vue micro frontends via Module Federation.
-      </p>
+    <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-8">
+      <div className="mb-10 text-center">
+        <h1 className="text-3xl font-bold text-white mb-2">Micro Frontend Shell</h1>
+        <p className="text-gray-400 text-sm">Sign in to access the platform.</p>
+      </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+      <Suspense fallback={<p className="text-gray-400 text-sm">Loading…</p>}>
+        <AuthWidget onLogin={login} />
+      </Suspense>
+    </div>
+  )
+}
+
+function Dashboard() {
+  const { user, logout } = useAuth()
+
+  return (
+    <div className="min-h-screen bg-gray-900 p-8">
+      <header className="flex items-center justify-between mb-8">
         <div>
-          <h3 style={{ color: '#61dafb', marginBottom: 12 }}>React MFE (port 3001)</h3>
-          <Suspense fallback={<div style={{ color: '#aaa' }}>Loading React MFE...</div>}>
-            <ReactWidget />
-          </Suspense>
+          <h1 className="text-2xl font-bold text-white">Micro Frontend Shell</h1>
+          <p className="text-gray-400 text-sm mt-1">
+            Hosting remote micro frontends via Module Federation.
+          </p>
         </div>
+        <div className="flex items-center gap-4">
+          <span className="text-gray-300 text-sm">
+            Hello, <span className="font-semibold text-blue-400">{user?.name}</span>
+          </span>
+          <button
+            onClick={logout}
+            className="px-3 py-1.5 bg-gray-700 hover:bg-gray-600 text-white text-sm rounded-md transition-colors"
+          >
+            Sign out
+          </button>
+        </div>
+      </header>
 
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <h3 style={{ color: '#42b883', marginBottom: 12 }}>Vue MFE (port 3002)</h3>
+          <h3 className="text-blue-400 font-semibold mb-3">Vue MFE (port 3002)</h3>
           <VueWidget />
         </div>
       </div>
     </div>
   )
+}
+
+export default function App() {
+  const { user } = useAuth()
+  return user ? <Dashboard /> : <LoginPage />
 }

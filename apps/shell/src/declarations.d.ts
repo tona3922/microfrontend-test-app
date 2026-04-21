@@ -1,7 +1,11 @@
-declare module 'reactApp/ReactWidget' {
+import type { AuthUser } from './AuthContext'
+
+declare module 'reactApp/AuthWidget' {
   import { ComponentType } from 'react'
-  const ReactWidget: ComponentType
-  export default ReactWidget
+  const AuthWidget: ComponentType<{
+    onLogin: (user: AuthUser) => void
+  }>
+  export default AuthWidget
 }
 
 declare module 'vueApp/VueWidget' {

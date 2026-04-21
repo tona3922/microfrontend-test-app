@@ -11,7 +11,7 @@ export default defineConfig({
       name: 'reactApp',
       filename: 'remoteEntry.js',
       exposes: {
-        './ReactWidget': './src/ReactWidget',
+        './AuthWidget': './src/AuthWidget',
       },
       shared: ['react', 'react-dom'],
     }),
