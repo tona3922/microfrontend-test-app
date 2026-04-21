@@ -12,7 +12,9 @@
   },
   "devDependencies": {
     "@originjs/vite-plugin-federation": "^1.3.6",
+    "@tailwindcss/vite": "^4.2.4",
     "@vitejs/plugin-vue": "^5.2.1",
+    "tailwindcss": "^4.2.4",
     "vite": "^6.0.3"
   }
 }
