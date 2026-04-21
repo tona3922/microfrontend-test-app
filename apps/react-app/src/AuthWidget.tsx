@@ -1,12 +1,7 @@
 import React, { useState } from 'react'
+import type { AuthUser, OAuthProvider } from '@repo/types'
 
-export interface AuthUser {
-  email: string
-  name: string
-  avatar?: string
-}
-
-export type OAuthProvider = 'google' | 'github'
+export type { AuthUser, OAuthProvider }
 
 interface Props {
   onLogin: (user: AuthUser) => void

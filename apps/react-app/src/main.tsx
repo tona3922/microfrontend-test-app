@@ -1,7 +1,8 @@
 import './index.css'
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom/client'
-import AuthWidget, { AuthUser, OAuthProvider } from './AuthWidget'
+import type { AuthUser, OAuthProvider } from '@repo/types'
+import AuthWidget from './AuthWidget'
 
 function App() {
   const [user, setUser] = useState<AuthUser | null>(null)

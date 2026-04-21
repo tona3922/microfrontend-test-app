@@ -1,4 +1,6 @@
-export type OAuthProvider = 'google' | 'github'
+import type { OAuthProvider } from '@repo/types'
+
+export type { OAuthProvider }
 
 export interface OAuthProviderConfig {
   name: string

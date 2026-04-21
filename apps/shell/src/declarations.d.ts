@@ -1,4 +1,4 @@
-import type { AuthUser, OAuthProvider } from './AuthContext'
+import type { AuthUser, OAuthProvider } from '@repo/types'
 
 declare module 'reactApp/AuthWidget' {
   import { ComponentType } from 'react'

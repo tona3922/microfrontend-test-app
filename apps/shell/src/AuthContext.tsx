@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useCallback } from 'react'
+import type { AuthUser, OAuthProvider } from '@repo/types'
 import {
-  OAuthProvider,
   buildAuthUrl,
   exchangeCodeForToken,
   fetchUserInfo,
@@ -9,11 +9,7 @@ import {
   OAUTH_SESSION_KEYS,
 } from './oauth'
 
-export interface AuthUser {
-  email: string
-  name: string
-  avatar?: string
-}
+export type { AuthUser, OAuthProvider }
 
 interface AuthContextValue {
   user: AuthUser | null
