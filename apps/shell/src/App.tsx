@@ -53,9 +53,7 @@ export default function App() {
 
         <div>
           <h3 style={{ color: '#42b883', marginBottom: 12 }}>Vue MFE (port 3002)</h3>
-          <Suspense fallback={<div style={{ color: '#aaa' }}>Loading Vue MFE...</div>}>
-            <VueWidget />
-          </Suspense>
+          <VueWidget />
         </div>
       </div>
     </div>

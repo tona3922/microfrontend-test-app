@@ -9,7 +9,7 @@ export default defineConfig({
       name: 'vueApp',
       filename: 'remoteEntry.js',
       exposes: {
-        './VueWidget': './src/VueWidget',
+        './VueWidget': './src/VueWidget.vue',
       },
       shared: ['vue'],
     }),

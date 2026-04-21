@@ -6,9 +6,10 @@
     "apps/*"
   ],
   "scripts": {
-    "dev": "concurrently \"npm run dev -w apps/vue-app\" \"npm run dev -w apps/react-app\" \"npm run dev -w apps/shell\"",
-    "build": "npm run build -w apps/vue-app && npm run build -w apps/react-app && npm run build -w apps/shell",
-    "preview": "concurrently \"npm run preview -w apps/vue-app\" \"npm run preview -w apps/react-app\" \"npm run preview -w apps/shell\""
+    "dev": "npm run build:remotes && concurrently \"npm run preview -w apps/react-app\" \"npm run preview -w apps/vue-app\" \"npm run dev -w apps/shell\"",
+    "build:remotes": "npm run build -w apps/react-app && npm run build -w apps/vue-app",
+    "build": "npm run build -w apps/react-app && npm run build -w apps/vue-app && npm run build -w apps/shell",
+    "preview": "concurrently \"npm run preview -w apps/react-app\" \"npm run preview -w apps/vue-app\" \"npm run preview -w apps/shell\""
   },
   "devDependencies": {
     "concurrently": "^9.1.0"
