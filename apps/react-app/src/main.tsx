@@ -1,15 +1,24 @@
 import './index.css'
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom/client'
-import AuthWidget, { AuthUser } from './AuthWidget'
+import AuthWidget, { AuthUser, OAuthProvider } from './AuthWidget'
 
 function App() {
   const [user, setUser] = useState<AuthUser | null>(null)
+
+  const handleOAuth = async (provider: OAuthProvider) => {
+    // In standalone mode, OAuth is not wired up — log intent only
+    console.info(`[standalone] OAuth requested for provider: ${provider}`)
+    alert(`OAuth with ${provider} is handled by the shell app in production.`)
+  }
 
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center p-8">
       {user ? (
         <div className="text-center space-y-4">
+          {user.avatar && (
+            <img src={user.avatar} alt={user.name} className="w-16 h-16 rounded-full mx-auto object-cover" />
+          )}
           <p className="text-white text-lg">
             Welcome, <span className="font-bold text-blue-400">{user.name}</span>!
           </p>
@@ -21,7 +30,7 @@ function App() {
           </button>
         </div>
       ) : (
-        <AuthWidget onLogin={setUser} />
+        <AuthWidget onLogin={setUser} onOAuthLogin={handleOAuth} />
       )}
     </div>
   )
