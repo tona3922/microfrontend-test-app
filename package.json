@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "workspaces": [
-    "apps/*"
+    "apps/*",
+    "packages/*"
   ],
   "scripts": {
     "dev": "npm run build:remotes && concurrently \"npm run preview -w apps/react-app\" \"npm run preview -w apps/vue-app\" \"npm run dev -w apps/shell\"",

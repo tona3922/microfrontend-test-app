@@ -1,9 +1,11 @@
-import type { AuthUser } from './AuthContext'
+import type { AuthUser, OAuthProvider } from '@repo/types'
 
 declare module 'reactApp/AuthWidget' {
   import { ComponentType } from 'react'
   const AuthWidget: ComponentType<{
     onLogin: (user: AuthUser) => void
+    onOAuthLogin: (provider: OAuthProvider) => void
+    oauthError?: string | null
   }>
   export default AuthWidget
 }
