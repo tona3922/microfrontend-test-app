@@ -9,7 +9,13 @@ export interface OAuthProviderConfig {
   userInfoUrl: string
   scopes: string[]
   clientId: string
-  /** GitHub does not support PKCE — token exchange must go through a backend proxy */
+  /**
+   * Required by Google even for Desktop app (public) clients — the secret is intentionally
+   * non-confidential for installed/desktop apps; PKCE provides the real security guarantee.
+   * GitHub does not support CORS on its token endpoint, so token exchange must go through
+   * a backend proxy instead.
+   */
+  clientSecret?: string
   pkce: boolean
 }
 
@@ -21,6 +27,7 @@ export const OAUTH_PROVIDERS: Record<OAuthProvider, OAuthProviderConfig> = {
     userInfoUrl: 'https://www.googleapis.com/oauth2/v3/userinfo',
     scopes: ['openid', 'email', 'profile'],
     clientId: import.meta.env.VITE_GOOGLE_CLIENT_ID ?? '',
+    clientSecret: import.meta.env.VITE_GOOGLE_CLIENT_SECRET ?? '',
     pkce: true,
   },
   github: {
@@ -109,6 +116,10 @@ export async function exchangeCodeForToken(
     client_id: config.clientId,
     code,
     redirect_uri: redirectUri,
+  }
+
+  if (config.clientSecret) {
+    body.client_secret = config.clientSecret
   }
 
   if (config.pkce) {
