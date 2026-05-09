@@ -6,8 +6,8 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
 
-  const reactAppUrl = env.VITE_REACT_APP_URL ?? 'http://localhost:3001'
-  const vueAppUrl = env.VITE_VUE_APP_URL ?? 'http://localhost:3002'
+  const reactAppUrl = env.VITE_REACT_APP_URL || 'http://localhost:3001'
+  const vueAppUrl = env.VITE_VUE_APP_URL || 'http://localhost:3002'
 
   return {
     plugins: [
