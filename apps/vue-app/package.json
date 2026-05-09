@@ -6,7 +6,7 @@
     "dev": "vite --port 3002",
     "build": "vite build",
     "preview": "vite preview --port 3002",
-    "deploy": "vite build && surge dist --domain vue-app-mfe.surge.sh"
+    "deploy": "vite build && touch dist/CORS && surge dist --domain vue-app-mfe.surge.sh"
   },
   "dependencies": {
     "vue": "^3.5.13"
