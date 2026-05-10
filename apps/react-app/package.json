@@ -6,7 +6,7 @@
     "dev": "vite --port 3001",
     "build": "vite build",
     "preview": "vite preview --port 3001",
-    "deploy": "vite build && touch dist/CORS && surge dist --domain react-app-mfe.surge.sh"
+    "deploy": "vite build && netlify deploy --prod --dir dist"
   },
   "dependencies": {
     "@repo/types": "*",
